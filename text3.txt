@@ -1,0 +1,8 @@
+stroka one
+stroka two
+stroka three
+stroka four
+stroka five
+stroka six
+stroka seven
+stroka fourty
