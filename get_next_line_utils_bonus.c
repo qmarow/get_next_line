@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qmarowak <qmarowak@student.21-school.ru>   +#+  +:+       +#+        */
+/*   By: qmarowak <qmarowak@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/28 09:05:43 by qmarowak          #+#    #+#             */
-/*   Updated: 2020/05/28 09:08:01 by qmarowak         ###   ########.fr       */
+/*   Updated: 2020/05/30 16:38:36 by qmarowak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -3,22 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qmarowak <qmarowak@student.21-school.ru>   +#+  +:+       +#+        */
+/*   By: qmarowak <qmarowak@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 14:15:39 by qmarowak          #+#    #+#             */
-/*   Updated: 2020/05/28 09:02:40 by qmarowak         ###   ########.fr       */
+/*   Updated: 2020/05/30 18:06:17 by qmarowak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <fcntl.h>
 #include <stdlib.h>
-#include "get_next_line_bonus.h"
+#include "get_next_line.h"
 
 int		full_residue(char **line, char **value, int fun, char *buf)
 {
 	char *pointer_n;
-
+	char *tmp;
+	
 	if (!buf)
 		buf = *value;
 	if ((pointer_n = ft_strchr(buf, '\n')))
@@ -26,8 +27,10 @@ int		full_residue(char **line, char **value, int fun, char *buf)
 		*pointer_n = '\0';
 		if (fun)
 			*line = ft_strdup(*value);
+		tmp = *value;
 		if (!(*value = ft_strdup(++pointer_n)))
 			return (-1);
+		free(tmp);
 		return (1);
 	}
 	return (0);
@@ -35,10 +38,15 @@ int		full_residue(char **line, char **value, int fun, char *buf)
 
 int		cut_residue(char **line, char **ostatok)
 {
+	int flag;
+
 	if (*ostatok)
 	{
-		if ((full_residue(line, ostatok, 1, NULL)) == 1)
-			return (1);
+		if ((flag = (full_residue(line, ostatok, 1, NULL))))
+		{
+			if(flag == 1)
+				return (1);
+		}
 		else
 		{
 			if ((*line = ft_strdup(*ostatok)))
@@ -51,7 +59,7 @@ int		cut_residue(char **line, char **ostatok)
 	}
 	else
 	{
-		if (*line = ft_strdup(""))
+		if ((*line = ft_strdup("")))
 			return (0);
 	}
 	return (-1);
@@ -59,19 +67,19 @@ int		cut_residue(char **line, char **ostatok)
 
 int		get_line(int fd, char **line, char **ostatok)
 {
-	char	buf[BUF_SIZE + 1];
+	char	buf[BUFFER_SIZE + 1];
 	int		end_chr;
 	char	*tmp;
 	int		flag;
 
 	if ((flag = cut_residue(line, ostatok)) == -1)
 		return (-1);
-	while (!flag && (end_chr = read(fd, buf, BUF_SIZE)))
+	while (!flag && (end_chr = read(fd, buf, BUFFER_SIZE)))
 	{
 		buf[end_chr] = '\0';
+		tmp = *line;
 		if ((flag = (full_residue(line, ostatok, 0, buf))) == -1)
 			return (-1);
-		tmp = *line;
 		if (!(*line = ft_strjoin((const char*)*line, (const char*)buf)))
 			return (-1);
 		free(tmp);
@@ -103,11 +111,10 @@ int		get_next_line(int fd, char **line)
 {
 	static t_list	*list;
 	t_list			*tmp;
-	int				f;
+	int				flag;
 
-	if ((read(fd, 0, 1)) == -1 && !(*line))
+	if (fd < 0 || !line || !(list = list ? list : new_list(fd)))
 		return (-1);
-	list = list ? list : new_list(fd);
 	tmp = list;
 	while (tmp->fd != fd)
 	{
@@ -115,6 +122,6 @@ int		get_next_line(int fd, char **line)
 			tmp->next = new_list(fd);
 		tmp = tmp->next;
 	}
-	f = get_line(tmp->fd, line, &tmp->ostatok);
-	return ((f == 1) ? 1 : ft_clear(&list, &tmp));
+	flag = get_line(tmp->fd, line, &tmp->ostatok);
+	return ((flag == 1) ? 1 : ft_clear(&list, &tmp));
 }
