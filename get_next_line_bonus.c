@@ -6,7 +6,7 @@
 /*   By: qmarowak <qmarowak@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/28 09:01:52 by qmarowak          #+#    #+#             */
-/*   Updated: 2020/05/30 18:06:41 by qmarowak         ###   ########.fr       */
+/*   Updated: 2020/05/30 22:31:07 by qmarowak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,10 @@ int		get_next_line(int fd, char **line)
 	static t_list	*list;
 	t_list			*tmp;
 	int				flag;
+	char			*buf;
 
-	if (fd < 0 || !line || !(list = list ? list : new_list(fd)))
+	buf = NULL;
+	if (fd < 0 || !line || !(list = list ? list : new_list(fd)) || read(fd, buf, 0))
 		return (-1);
 	tmp = list;
 	while (tmp->fd != fd)

@@ -6,12 +6,12 @@
 /*   By: qmarowak <qmarowak@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/26 16:46:29 by qmarowak          #+#    #+#             */
-/*   Updated: 2020/05/29 10:44:27 by qmarowak         ###   ########.fr       */
+/*   Updated: 2020/05/30 22:31:26 by qmarowak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_BONUS_H
-# define GET_NEXT_LINE_BONUS_H
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
 # include <unistd.h>
 # include <stdlib.h>

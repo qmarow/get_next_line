@@ -6,7 +6,7 @@
 /*   By: qmarowak <qmarowak@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/28 09:05:43 by qmarowak          #+#    #+#             */
-/*   Updated: 2020/05/30 16:38:36 by qmarowak         ###   ########.fr       */
+/*   Updated: 2020/05/30 22:31:58 by qmarowak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,8 @@ t_list		*new_list(int fd)
 
 	if (!(list = malloc(sizeof(t_list))))
 		return (NULL);
-	if (!list)
-		list->ostatok = NULL;
-	else
-		list->fd = fd;
+	list->ostatok = NULL;
+	list->fd = fd;
 	list->next = NULL;
 	return (list);
 }
