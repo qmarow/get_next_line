@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qmarowak <qmarowak@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: qmarowak <qmarowak@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/23 14:15:39 by qmarowak          #+#    #+#             */
 /*   Updated: 2020/05/31 15:26:02 by qmarowak         ###   ########.fr       */
@@ -19,7 +19,7 @@ int		full_residue(char **line, char **value, int fun, char *buf)
 {
 	char *pointer_n;
 	char *tmp;
-	
+
 	if (!buf)
 		buf = *value;
 	if ((pointer_n = ft_strchr(buf, '\n')))
@@ -44,7 +44,7 @@ int		cut_residue(char **line, char **ostatok)
 	{
 		if ((flag = (full_residue(line, ostatok, 1, NULL))))
 		{
-			if(flag == 1)
+			if (flag == 1)
 				return (1);
 		}
 		else
@@ -87,7 +87,7 @@ int		get_line(int fd, char **line, char **ostatok)
 	return ((*ostatok == NULL) ? 0 : 1);
 }
 
-int		ft_clear(t_list **list, t_list **tmp)
+int		ft_clear(t_list **list, t_list **tmp, int flag)
 {
 	t_list *start;
 
@@ -98,12 +98,16 @@ int		ft_clear(t_list **list, t_list **tmp)
 		{
 			free(*list);
 			*list = NULL;
+			if (flag == -1)
+				return (-1);
 			return (0);
 		}
 		start = start->next;
 	}
 	start->next = (*tmp)->next;
 	free(*tmp);
+	if (flag == -1)
+		return (-1);
 	return (0);
 }
 
@@ -115,7 +119,11 @@ int		get_next_line(int fd, char **line)
 	char			*buf;
 
 	buf = NULL;
-	if (fd < 0 || !line || !(list = list ? list : new_list(fd)) || read(fd, buf, 0))
+	if (BUFFER_SIZE <= 0)
+		return (-1);
+	if (fd < 0 || !line || read(fd, buf, 0))
+		return (-1);
+	if (!(list = list ? list : new_list(fd)))
 		return (-1);
 	tmp = list;
 	while (tmp->fd != fd)
@@ -125,5 +133,5 @@ int		get_next_line(int fd, char **line)
 		tmp = tmp->next;
 	}
 	flag = get_line(tmp->fd, line, &tmp->ostatok);
-	return ((flag == 1) ? 1 : ft_clear(&list, &tmp));
+	return ((flag == 1) ? 1 : ft_clear(&list, &tmp, flag));
 }

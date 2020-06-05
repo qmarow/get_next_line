@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qmarowak <qmarowak@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: qmarowak <qmarowak@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 12:41:15 by qmarowak          #+#    #+#             */
 /*   Updated: 2020/05/29 10:43:37 by qmarowak         ###   ########.fr       */
