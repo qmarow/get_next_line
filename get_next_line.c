@@ -135,3 +135,18 @@ int		get_next_line(int fd, char **line)
 	flag = get_line(tmp->fd, line, &tmp->ostatok);
 	return ((flag == 1) ? 1 : ft_clear(&list, &tmp, flag));
 }
+
+int		main(void)
+{
+	int		dd;
+	char	*line;
+
+	dd = open("text3.txt", O_RDONLY);
+	while(get_next_line(dd, &line))
+	{
+		printf("%s\n", line);
+		free(line);
+	}
+	printf("%s\n", line);
+	free(line);
+}
